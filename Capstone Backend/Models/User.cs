@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient.Server;
 
 namespace Capstone_Backend.Models {
@@ -21,8 +23,9 @@ namespace Capstone_Backend.Models {
 		[Required]
 		[StringLength(30)]
 		public string Lastname { get; set; }
+		
 		[StringLength(12)]
-		public string Phonenumber { get; set; }
+		public string Phone { get; set; }
 		[StringLength(255)]
 		public string Email { get; set; }
 		public bool IsReviewer { get; set; }

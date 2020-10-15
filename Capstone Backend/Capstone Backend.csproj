@@ -6,7 +6,38 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Compile Remove="Migrations\20201015151158_Test User.cs" />
+    <Compile Remove="Migrations\20201015151158_Test User.Designer.cs" />
+    <Compile Remove="Migrations\20201015151747_Test User.cs" />
+    <Compile Remove="Migrations\20201015151747_Test User.Designer.cs" />
+    <Compile Remove="Migrations\20201015153650_Test User.cs" />
+    <Compile Remove="Migrations\20201015153650_Test User.Designer.cs" />
+    <Compile Remove="Migrations\20201015160714_Test User.cs" />
+    <Compile Remove="Migrations\20201015160714_Test User.Designer.cs" />
+    <Compile Remove="Migrations\20201015161734_Test User.cs" />
+    <Compile Remove="Migrations\20201015161734_Test User.Designer.cs" />
+    <Compile Remove="Migrations\20201015162209_Test User.cs" />
+    <Compile Remove="Migrations\20201015162209_Test User.Designer.cs" />
+    <Compile Remove="Migrations\20201015180331_Added Vendor.cs" />
+    <Compile Remove="Migrations\20201015180331_Added Vendor.Designer.cs" />
+    <Compile Remove="Migrations\20201015180731_Added Vendor.cs" />
+    <Compile Remove="Migrations\20201015180731_Added Vendor.Designer.cs" />
+    <Compile Remove="Migrations\20201015180839_Added User and Vendor.cs" />
+    <Compile Remove="Migrations\20201015180839_Added User and Vendor.Designer.cs" />
+    <Compile Remove="Migrations\20201015190558_requests added.cs" />
+    <Compile Remove="Migrations\20201015190558_requests added.Designer.cs" />
+    <Compile Remove="Migrations\20201015192915_requests with defaults added.cs" />
+    <Compile Remove="Migrations\20201015192915_requests with defaults added.Designer.cs" />
+    <Compile Remove="Migrations\20201015193326_requests with defaults added.cs" />
+    <Compile Remove="Migrations\20201015193326_requests with defaults added.Designer.cs" />
+    <Compile Remove="Migrations\20201015193557_requests with defaults added.cs" />
+    <Compile Remove="Migrations\20201015193557_requests with defaults added.Designer.cs" />
+    <Compile Remove="Migrations\20201015193811_requests with defaults added.cs" />
+    <Compile Remove="Migrations\20201015193811_requests with defaults added.Designer.cs" />
+    <Compile Remove="Migrations\20201015194105_requests added.cs" />
+    <Compile Remove="Migrations\20201015194105_requests added.Designer.cs" />
+    <Compile Remove="Migrations\20201015194912_requests added.cs" />
+    <Compile Remove="Migrations\20201015194912_requests added.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,11 +45,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
     <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.1.9" />
     <PackageReference Include="microsoft.entityframeworkcore.tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
 
