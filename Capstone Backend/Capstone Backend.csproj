@@ -38,6 +38,8 @@
     <Compile Remove="Migrations\20201015194105_requests added.Designer.cs" />
     <Compile Remove="Migrations\20201015194912_requests added.cs" />
     <Compile Remove="Migrations\20201015194912_requests added.Designer.cs" />
+    <Compile Remove="Migrations\20201016142500_Unsigned.cs" />
+    <Compile Remove="Migrations\20201016142500_Unsigned.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

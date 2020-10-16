@@ -28,6 +28,10 @@ namespace Capstone_Backend.Controllers
         {
             return await _context.Request.ToListAsync();
         }
+        [HttpGet("review")]
+        public async Task<ActionResult<IEnumerable<Request>>> GetReviewRequest() {
+            return await _context.Request.Where(r => r.Status == "REVIEW").ToListAsync();
+        }
 
         // GET: api/Requests/5
         [HttpGet("{id}")]
@@ -78,15 +82,15 @@ namespace Capstone_Backend.Controllers
         [HttpPut("review")]
         public async Task<IActionResult> ReviewRequest(Request request) {
 
-            request.Status = "REVIEW";
+            request.Status = request.Total < 50 ? "APPROVED" : "REVIEW";
             return await PutRequest(request.Id, request);
             
         }
 
         [HttpPut("approve")]
-        public async Task<IActionResult> ApproveRequest(Request request) {
+        public async Task<IActionResult> ApproveCheapRequest(Request request) {
 
-            request.Status = "Approve";
+            request.Status = "APPROVED";
             return await PutRequest(request.Id, request);
 
         }
@@ -94,7 +98,7 @@ namespace Capstone_Backend.Controllers
         [HttpPut("reject")]
         public async Task<IActionResult> RejectRequest(Request request) {
 
-            request.Status = "REJECT";
+            request.Status = "REJECTED";
             return await PutRequest(request.Id, request);
 
         }

@@ -20,15 +20,12 @@ namespace Capstone_Backend.Models {
 		public string RejectionReason { get; set; }
 		[Required]
 		[StringLength(20)]
-		[DefaultValue("Pickup")]
-		public string DeliveryMode { get; set; } = "Pickup";
+		public string DeliveryMode { get; set; }
 		[Required]
 		[StringLength(10)]
-		[DefaultValue("New")]
-		public string Status { get; set; } = "NEW";
+		public string Status { get; set; }
 		[Column(TypeName = "decimal(11,2)")]
-		[DefaultValue(0)]
-		public decimal Total { get; set; } = 0;
+		public decimal Total { get; set; }
 		public int UserId { get; set; }
 		public virtual User User { get; set; }
 		public Request() { }

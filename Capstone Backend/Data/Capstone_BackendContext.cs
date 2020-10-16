@@ -22,11 +22,14 @@ namespace Capstone_Backend.Data
             builder.Entity<User>(e => { e.HasIndex(p => p.Username).IsUnique(); });
             builder.Entity<Product>(p => { p.HasIndex(p => p.PartNumber).IsUnique(); });
             builder.Entity<Request>(r => { r.Property(d => d.DeliveryMode).HasDefaultValue("Pickup"); });
-            builder.Entity<Request>(r => { r.Property(d => d.Status).HasDefaultValue("NEW"); });
-            builder.Entity<Request>(r => { r.Property(d => d.Total).HasDefaultValue(0); });
+            builder.Entity<Request>(r => { r.Property(s => s.Status).HasDefaultValue("NEW"); });
+            builder.Entity<Request>(r => { r.Property(t => t.Total).HasDefaultValue(0); });
+            builder.Entity<Requestline>(rl => { rl.Property(q => q.Quantity).HasDefaultValue(1); });
         }
 
         public DbSet<Capstone_Backend.Models.Request> Request { get; set; }
+
+        public DbSet<Capstone_Backend.Models.Requestline> Requestline { get; set; }
         
     }
 
