@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Capstone_Backend.Migrations
 {
     [DbContext(typeof(Capstone_BackendContext))]
-    [Migration("20201016140744_Requestline added")]
-    partial class Requestlineadded
+    [Migration("20201016184456_Complete Database")]
+    partial class CompleteDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,10 +122,10 @@ namespace Capstone_Backend.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<long>("Quantity")
+                    b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(1L);
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
@@ -235,6 +235,9 @@ namespace Capstone_Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("Vendor");
                 });
 
@@ -265,7 +268,7 @@ namespace Capstone_Backend.Migrations
                         .IsRequired();
 
                     b.HasOne("Capstone_Backend.Models.Request", "Request")
-                        .WithMany()
+                        .WithMany("Requestlines")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

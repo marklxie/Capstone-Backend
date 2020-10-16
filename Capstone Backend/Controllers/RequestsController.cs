@@ -13,19 +13,16 @@ namespace Capstone_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RequestsController : ControllerBase
-    {
+    public class RequestsController : ControllerBase {
         private readonly Capstone_BackendContext _context;
 
-        public RequestsController(Capstone_BackendContext context)
-        {
+        public RequestsController(Capstone_BackendContext context) {
             _context = context;
         }
 
         // GET: api/Requests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Request>>> GetRequest()
-        {
+        public async Task<ActionResult<IEnumerable<Request>>> GetRequest() {
             return await _context.Request.ToListAsync();
         }
         [HttpGet("review")]
@@ -35,12 +32,10 @@ namespace Capstone_Backend.Controllers
 
         // GET: api/Requests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Request>> GetRequest(int id)
-        {
+        public async Task<ActionResult<Request>> GetRequest(int id) {
             var request = await _context.Request.FindAsync(id);
 
-            if (request == null)
-            {
+            if(request == null) {
                 return NotFound();
             }
 
@@ -51,27 +46,21 @@ namespace Capstone_Backend.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRequest(int id, Request request)
-        {
-            if (id != request.Id)
-            {
+        public async Task<IActionResult> PutRequest(int id, Request request) {
+            if(id != request.Id) {
                 return BadRequest();
             }
 
             _context.Entry(request).State = EntityState.Modified;
 
-            try
-            {
+            try {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RequestExists(id))
-                {
+            catch(DbUpdateConcurrencyException) {
+                if(!RequestExists(id)) {
                     return NotFound();
                 }
-                else
-                {
+                else {
                     throw;
                 }
             }
@@ -79,29 +68,30 @@ namespace Capstone_Backend.Controllers
             return NoContent();
         }
         // Put:Api/requests
-        [HttpPut("review")]
-        public async Task<IActionResult> ReviewRequest(Request request) {
+        [HttpPut("review/{id}")]
+        public async Task<IActionResult> ReviewRequest(int id, Request request) {
 
             request.Status = request.Total < 50 ? "APPROVED" : "REVIEW";
-            return await PutRequest(request.Id, request);
-            
+            return await PutRequest(id, request);
+
         }
 
-        [HttpPut("approve")]
-        public async Task<IActionResult> ApproveCheapRequest(Request request) {
+        [HttpPut("approve/{id}")]
+        public async Task<IActionResult> ApproveCheapRequest(int id, Request request) {
 
             request.Status = "APPROVED";
-            return await PutRequest(request.Id, request);
+            return await PutRequest(id, request);
 
         }
 
-        [HttpPut("reject")]
-        public async Task<IActionResult> RejectRequest(Request request) {
+        [HttpPut("reject/{id}")]
+        public async Task<IActionResult> RejectRequest(int id, Request request) {
 
             request.Status = "REJECTED";
-            return await PutRequest(request.Id, request);
+            return await PutRequest(id, request);
 
         }
+
 
         // POST: api/Requests
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

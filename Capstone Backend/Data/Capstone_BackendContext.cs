@@ -19,8 +19,9 @@ namespace Capstone_Backend.Data
         public DbSet<Capstone_Backend.Models.Product> Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder) {
-            builder.Entity<User>(e => { e.HasIndex(p => p.Username).IsUnique(); });
+            builder.Entity<User>(e => { e.HasIndex(u => u.Username).IsUnique(); });
             builder.Entity<Product>(p => { p.HasIndex(p => p.PartNumber).IsUnique(); });
+            builder.Entity<Vendor>(v => { v.HasIndex(c => c.Code).IsUnique(); });
             builder.Entity<Request>(r => { r.Property(d => d.DeliveryMode).HasDefaultValue("Pickup"); });
             builder.Entity<Request>(r => { r.Property(s => s.Status).HasDefaultValue("NEW"); });
             builder.Entity<Request>(r => { r.Property(t => t.Total).HasDefaultValue(0); });

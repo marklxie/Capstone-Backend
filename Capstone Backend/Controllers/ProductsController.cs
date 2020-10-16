@@ -25,14 +25,15 @@ namespace Capstone_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            return await _context.Product.Include(v=>v.Vendor).ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Product.Include(v => v.Vendor)
+            .SingleOrDefaultAsync(p => p.Id == id);
 
             if (product == null)
             {

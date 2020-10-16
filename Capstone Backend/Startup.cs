@@ -24,16 +24,19 @@ namespace Capstone_Backend {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers();
 
-    services.AddDbContext<Capstone_BackendContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("CapStoneDB")));
+			services.AddDbContext<Capstone_BackendContext>(
+			options => options.UseSqlServer(Configuration.GetConnectionString("CapStoneDB")));
+			services.AddCors();
 		}
+		
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			if(env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			}
-
+			//Use Cors later
+			//app.UseCors(option => option.AllowAnyOrigin);
 			app.UseRouting();
 
 			app.UseAuthorization();

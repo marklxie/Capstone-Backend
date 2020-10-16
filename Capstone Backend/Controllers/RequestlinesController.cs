@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Capstone_Backend.Data;
 using Capstone_Backend.Models;
+using System.Runtime.CompilerServices;
+using Capstone_Backend.Controllers;
 
 namespace Capstone_Backend.Controllers
 {
@@ -42,6 +44,20 @@ namespace Capstone_Backend.Controllers
             return requestline;
         }
 
+        private async Task RecalculateTotal(int id,Request request) {
+
+            var hold = (from p in _context.Product.ToList()
+                        join rl in _context.Requestline.ToList()
+                        on p.Id equals rl.ProductId
+                        where id == rl.RequestId
+                        select new {
+                            total = rl.Quantity * p.Price
+                        }).Sum(t => t.total);
+            request.Total = hold;
+            await _context.SaveChangesAsync();
+        }
+
+
         // PUT: api/Requestlines/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -74,14 +90,27 @@ namespace Capstone_Backend.Controllers
             return NoContent();
         }
 
+
+        [HttpPut("quantity/{id}")]
+        public async Task<IActionResult> PositiveQuantity(int id, Requestline requestline) {
+            if(requestline.Quantity < 0)
+                requestline.Quantity = 0;
+            else
+                return NoContent();
+            return await PutRequestline(id, requestline);
+        }
         // POST: api/Requestlines
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Requestline>> PostRequestline(Requestline requestline)
         {
+            if(requestline.Quantity < 0) {
+                requestline.Quantity = 0;
+            }
             _context.Requestline.Add(requestline);
             await _context.SaveChangesAsync();
+            await RecalculateTotal(requestline.RequestId, _context.Request.Find(requestline.RequestId));
 
             return CreatedAtAction("GetRequestline", new { id = requestline.Id }, requestline);
         }
@@ -95,10 +124,10 @@ namespace Capstone_Backend.Controllers
             {
                 return NotFound();
             }
-
+            var holdId = requestline.RequestId;
             _context.Requestline.Remove(requestline);
             await _context.SaveChangesAsync();
-
+            await RecalculateTotal(holdId, _context.Request.Find(holdId));
             return requestline;
         }
 

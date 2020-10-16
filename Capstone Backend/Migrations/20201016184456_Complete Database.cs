@@ -2,7 +2,7 @@
 
 namespace Capstone_Backend.Migrations
 {
-    public partial class Reset : Migration
+    public partial class CompleteDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -95,6 +95,33 @@ namespace Capstone_Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Requestline",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RequestId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false, defaultValue: 1)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Requestline", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Requestline_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Requestline_Request_RequestId",
+                        column: x => x.RequestId,
+                        principalTable: "Request",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Product_PartNumber",
                 table: "Product",
@@ -112,14 +139,33 @@ namespace Capstone_Backend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Requestline_ProductId",
+                table: "Requestline",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Requestline_RequestId",
+                table: "Requestline",
+                column: "RequestId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_Username",
                 table: "User",
                 column: "Username",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vendor_Code",
+                table: "Vendor",
+                column: "Code",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Requestline");
+
             migrationBuilder.DropTable(
                 name: "Product");
 

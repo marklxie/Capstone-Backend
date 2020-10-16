@@ -28,6 +28,7 @@ namespace Capstone_Backend.Models {
 		public decimal Total { get; set; }
 		public int UserId { get; set; }
 		public virtual User User { get; set; }
+		public virtual IEnumerable<Requestline> Requestlines { get; set; }
 		public Request() { }
 	}
 }
