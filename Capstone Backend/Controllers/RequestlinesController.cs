@@ -27,6 +27,9 @@ namespace Capstone_Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Requestline>>> GetRequestline()
         {
+            foreach(var i in _context.Requestline.ToList()) {
+                await RecalculateTotal(i.RequestId, _context.Request.Find(i.RequestId));
+            }
             return await _context.Requestline.ToListAsync();
         }
 
@@ -40,7 +43,7 @@ namespace Capstone_Backend.Controllers
             {
                 return NotFound();
             }
-
+            await RecalculateTotal(requestline.RequestId, _context.Request.Find(requestline.RequestId));
             return requestline;
         }
 

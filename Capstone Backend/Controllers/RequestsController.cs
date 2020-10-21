@@ -25,9 +25,9 @@ namespace Capstone_Backend.Controllers
         public async Task<ActionResult<IEnumerable<Request>>> GetRequest() {
             return await _context.Request.ToListAsync();
         }
-        [HttpGet("review")]
-        public async Task<ActionResult<IEnumerable<Request>>> GetReviewRequest() {
-            return await _context.Request.Where(r => r.Status == "REVIEW").ToListAsync();
+        [HttpGet("review/{userId}")]
+        public async Task<ActionResult<IEnumerable<Request>>> GetReviewRequest(int userId) {
+            return await _context.Request.Where(r => r.UserId != userId && r.Status == "REVIEW").ToListAsync();
         }
 
         // GET: api/Requests/5
