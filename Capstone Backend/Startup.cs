@@ -36,7 +36,7 @@ namespace Capstone_Backend {
 				app.UseDeveloperExceptionPage();
 			}
 			//Use Cors later
-			//app.UseCors(option => option.AllowAnyOrigin);
+			app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 			app.UseRouting();
 
 			app.UseAuthorization();
