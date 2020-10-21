@@ -120,7 +120,7 @@ namespace Capstone_Backend.Controllers
             if(hold != null) {
                 return hold;
             }
-            return null;
+            return NotFound();
 
         }
     }
