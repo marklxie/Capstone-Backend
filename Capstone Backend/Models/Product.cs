@@ -20,7 +20,7 @@ namespace Capstone_Backend.Models {
 		public decimal Price { get; set; }
 		[Required]
 		[StringLength(30)]
-	public string Unit { get; set; }
+		public string Unit { get; set; }
 		[StringLength(255)]
 		public string PhotoPath { get; set; }
 		public int VendorId { get; set; }

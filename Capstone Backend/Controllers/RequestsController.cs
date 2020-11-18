@@ -23,7 +23,7 @@ namespace Capstone_Backend.Controllers
         // GET: api/Requests
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Request>>> GetRequest() {
-            return await _context.Request.ToListAsync();
+            return await _context.Request.Include(u =>u.User).ToListAsync();
         }
         [HttpGet("review/{userId}")]
         public async Task<ActionResult<IEnumerable<Request>>> GetReviewRequest(int userId) {
