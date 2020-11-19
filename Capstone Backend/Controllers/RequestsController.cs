@@ -39,6 +39,8 @@ namespace Capstone_Backend.Controllers
                 return NotFound();
             }
 
+            _context.Entry(request).Reference("User").Load();
+
             return request;
         }
 

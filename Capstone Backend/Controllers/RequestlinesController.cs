@@ -30,7 +30,16 @@ namespace Capstone_Backend.Controllers
             foreach(var i in _context.Requestline.ToList()) {
                 await RecalculateTotal(i.RequestId, _context.Request.Find(i.RequestId));
             }
-            return await _context.Requestline.ToListAsync();
+            return await _context.Requestline.Include(r => r.Request).Include(p => p.Product).ToListAsync();
+        }
+
+        //Get: api/Requestlines/request/:requestid
+        [HttpGet("request/{requestId}")]
+        public async Task<ActionResult<IEnumerable<Requestline>>> GetRequestRequestline(int requestId) {
+            foreach(var i in _context.Requestline.ToList()) {
+                await RecalculateTotal(i.RequestId, _context.Request.Find(i.RequestId));
+            }
+            return await _context.Requestline.Where(i => (i.RequestId == requestId)).Include(r => r.Request).Include(p => p.Product).ToListAsync();
         }
 
         // GET: api/Requestlines/5
